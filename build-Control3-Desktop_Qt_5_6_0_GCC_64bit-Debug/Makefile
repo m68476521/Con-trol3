@@ -48,10 +48,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Control3/main.cpp qrc_qml.cpp
+SOURCES       = ../Control3/main.cpp qrc_qml.cpp \
+		qrc_qmake_qmake_immediate.cpp
 OBJECTS       = main.o \
-		qrc_qml.o
-DIST          = /home/mike/Qt/5.6/gcc_64/mkspecs/features/spec_pre.prf \
+		qrc_qml.o \
+		qrc_qmake_qmake_immediate.o
+DIST          = ../Control3/components/Beginner.qml \
+		../Control3/imagen/scarface.jpg \
+		/home/mike/Qt/5.6/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/common/unix.conf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/common/linux.conf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/common/sanitize.conf \
@@ -174,6 +178,7 @@ DIST          = /home/mike/Qt/5.6/gcc_64/mkspecs/features/spec_pre.prf \
 		../Control3/deployment.pri \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/resolve_config.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/default_post.prf \
+		/home/mike/Qt/5.6/gcc_64/mkspecs/features/link_pkgconfig.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/qml_debug.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/warn_on.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/qt.prf \
@@ -320,6 +325,7 @@ Makefile: ../Control3/Control3.pro /home/mike/Qt/5.6/gcc_64/mkspecs/linux-g++/qm
 		../Control3/deployment.pri \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/resolve_config.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/default_post.prf \
+		/home/mike/Qt/5.6/gcc_64/mkspecs/features/link_pkgconfig.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/qml_debug.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/warn_on.prf \
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/qt.prf \
@@ -333,6 +339,7 @@ Makefile: ../Control3/Control3.pro /home/mike/Qt/5.6/gcc_64/mkspecs/linux-g++/qm
 		/home/mike/Qt/5.6/gcc_64/mkspecs/features/lex.prf \
 		../Control3/Control3.pro \
 		../Control3/qml.qrc \
+		qmake_qmake_immediate.qrc \
 		/home/mike/Qt/5.6/gcc_64/lib/libQt5Quick.prl \
 		/home/mike/Qt/5.6/gcc_64/lib/libQt5Gui.prl \
 		/home/mike/Qt/5.6/gcc_64/lib/libQt5Qml.prl \
@@ -462,6 +469,7 @@ Makefile: ../Control3/Control3.pro /home/mike/Qt/5.6/gcc_64/mkspecs/linux-g++/qm
 ../Control3/deployment.pri:
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/resolve_config.prf:
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/default_post.prf:
+/home/mike/Qt/5.6/gcc_64/mkspecs/features/link_pkgconfig.prf:
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/qml_debug.prf:
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/warn_on.prf:
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/qt.prf:
@@ -475,6 +483,7 @@ Makefile: ../Control3/Control3.pro /home/mike/Qt/5.6/gcc_64/mkspecs/linux-g++/qm
 /home/mike/Qt/5.6/gcc_64/mkspecs/features/lex.prf:
 ../Control3/Control3.pro:
 ../Control3/qml.qrc:
+qmake_qmake_immediate.qrc:
 /home/mike/Qt/5.6/gcc_64/lib/libQt5Quick.prl:
 /home/mike/Qt/5.6/gcc_64/lib/libQt5Gui.prl:
 /home/mike/Qt/5.6/gcc_64/lib/libQt5Qml.prl:
@@ -494,7 +503,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Control3/qml.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ../Control3/qml.qrc qmake_qmake_immediate.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../Control3/main.cpp $(DISTDIR)/
 
 
@@ -516,13 +525,106 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all: qrc_qml.cpp
+compiler_rcc_make_all: qrc_qml.cpp qrc_qmake_qmake_immediate.cpp
 compiler_rcc_clean:
-	-$(DEL_FILE) qrc_qml.cpp
+	-$(DEL_FILE) qrc_qml.cpp qrc_qmake_qmake_immediate.cpp
 qrc_qml.cpp: ../Control3/qml.qrc \
 		../Control3/MainForm.ui.qml \
-		../Control3/main.qml
+		../Control3/main.cpp \
+		../Control3/uno.png \
+		../Control3/main.qml \
+		../Control3/components/Button.qml \
+		/home/mike/Qt/5.6/gcc_64/include/QtGui/QGuiApplication \
+		/home/mike/Qt/5.6/gcc_64/include/QtGui/qguiapplication.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qglobal.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qconfig.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qfeatures.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qtypetraits.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qisenum.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qsysinfo.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qlogging.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qflags.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_gcc.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_armv7.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_armv6.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_armv5.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_ia64.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_x86.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qatomic_unix.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qmutex.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qnumeric.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qversiontagging.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qstring.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qchar.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qbytearray.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qrefcount.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qnamespace.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qarraydata.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qobject.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qlist.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qalgorithms.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qiterator.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qpair.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qstringlist.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qregexp.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qcoreevent.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qmetatype.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qobject_impl.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qeventloop.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtGui/qinputmethod.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qlocale.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qvariant.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qmap.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qdebug.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qhash.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qtextstream.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qiodevice.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qvector.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qpoint.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qset.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qshareddata.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qsize.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/QQmlApplicationEngine \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qqmlapplicationengine.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qqmlengine.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qurl.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qurlquery.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qjsengine.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qjsvalue.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qtqmlglobal.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qqmlerror.h \
+		/home/mike/Qt/5.6/gcc_64/include/QtQml/qqmldebug.h
 	/home/mike/Qt/5.6/gcc_64/bin/rcc -name qml ../Control3/qml.qrc -o qrc_qml.cpp
+
+qrc_qmake_qmake_immediate.cpp: qmake_qmake_immediate.qrc \
+		../Control3/imagen/scarface.jpg
+	/home/mike/Qt/5.6/gcc_64/bin/rcc -name qmake_qmake_immediate qmake_qmake_immediate.qrc -o qrc_qmake_qmake_immediate.cpp
 
 compiler_moc_header_make_all:
 compiler_moc_header_clean:
@@ -628,6 +730,9 @@ main.o: ../Control3/main.cpp /home/mike/Qt/5.6/gcc_64/include/QtGui/QGuiApplicat
 
 qrc_qml.o: qrc_qml.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qml.o qrc_qml.cpp
+
+qrc_qmake_qmake_immediate.o: qrc_qmake_qmake_immediate.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_qmake_qmake_immediate.o qrc_qmake_qmake_immediate.cpp
 
 ####### Install
 
